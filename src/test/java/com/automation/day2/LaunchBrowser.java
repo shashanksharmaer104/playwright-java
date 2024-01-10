@@ -7,11 +7,11 @@ import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertTha
 public class LaunchBrowser {
     public static void main(String[] args) {
         Playwright playwright = Playwright.create();
-        Browser browser = playwright.chromium().launch(
+        Browser browser = playwright.webkit().launch(
                 new BrowserType.LaunchOptions().setHeadless(false)
         );
-
         Page page = browser.newPage();
+
         page.navigate("https://ecommerce-playground.lambdatest.io/");
 
         Locator myAccount = page.locator("//a[contains(.,' My account')][@role='button']");
