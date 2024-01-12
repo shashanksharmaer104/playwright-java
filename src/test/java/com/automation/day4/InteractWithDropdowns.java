@@ -16,7 +16,7 @@ public class InteractWithDropdowns {
         // Launch browser and navigate
         Playwright playwright = Playwright.create();
         Browser browser = playwright.chromium().launch(
-                new BrowserType.LaunchOptions().setHeadless(false).setChannel("msedge")
+                new BrowserType.LaunchOptions().setHeadless(false)
         );
         Page page = browser.newPage();
         page.navigate(selectDropdownURL);
@@ -47,6 +47,16 @@ public class InteractWithDropdowns {
 
         List<String> optionsString = options.allInnerTexts();
         optionsString.forEach(System.out::println);
+
+        // Jquery dropdrown
+        page.navigate(jqueryDropdownURL);
+        page.locator("//span[@aria-labelledby='select2-country-container']").click();
+
+        Locator countryList = page.locator("//span[@class='select2-results']//ul//li", new Page.LocatorOptions().setHasText("India"));
+        countryList.click();
+
+        Locator dropNew = page.locator("#files");
+        dropNew.selectOption("Python");
 
         playwright.close();
     }
