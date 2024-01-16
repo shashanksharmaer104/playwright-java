@@ -25,6 +25,17 @@ public class LearnBrowserContext {
         newTab.navigate("https://ecommerce-playground.lambdatest.io/index.php?route=account/account");
         Locator newTabEditInfoLink = newTab.getByText(" Edit your account information");
         assertThat(newTabEditInfoLink).isVisible();
+
+        // To open new chrome window with entirely new session
+        BrowserContext context2 = browser.newContext();
+        Page userPage = context2.newPage();
+        userPage.navigate("https://ecommerce-playground.lambdatest.io/index.php?route=account/account");
+
+        // New firefox browser with entirely new session (with same playwright object/session)
+        Browser firefox = playwright.firefox().launch(new BrowserType.LaunchOptions().setHeadless(false));
+        Page firePage = firefox.newPage();
+        firePage.navigate("https://ecommerce-playground.lambdatest.io/index.php?route=account/account");
+
         playwright.close();
     }
 }
